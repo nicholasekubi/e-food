@@ -14,10 +14,10 @@ class PopularProductController extends GetxController {
 
   bool _isLoaded = false;
   bool get isLoaded => _isLoaded;
-  int _cartQuantity = 0;
-  int get cartQuantity => _cartQuantity;
+  int _quantity = 0;
+  int get quantity => _quantity;
   int _inCartItems = 0;
-  int get inCartItems => _inCartItems + _cartQuantity;
+  int get inCartItems => _inCartItems + _quantity;
   late CartController _cart;
 
   //
@@ -41,8 +41,8 @@ class PopularProductController extends GetxController {
         //
         //The ternary operator calls the checkQuality function and passes the current _cartQuantity with the plus or minus operator.
         //
-        ? _cartQuantity = checkQuantity(_cartQuantity + 1)
-        : _cartQuantity = checkQuantity(_cartQuantity - 1);
+        ? _quantity = checkQuantity(_quantity + 1)
+        : _quantity = checkQuantity(_quantity - 1);
     update();
   }
 
@@ -50,26 +50,44 @@ class PopularProductController extends GetxController {
 //This function ensuers the cart counter at the bottom of the screen does not exceed 20 not fall below 0.
 //
   int checkQuantity(int quantity) {
-    if (quantity < 0) {
+    if (_inCartItems + quantity < 0) {
       Get.snackbar('Invalid Operation', 'No items to remove',
-          backgroundColor: AppColors.mainColor, colorText: Colors.white);
+          colorText: Colors.black87
+          // backgroundColor: AppColors.mainColor, colorText: Colors.white
+          );
       return 0;
-    } else if (quantity > 20) {
+    } else if (_inCartItems + quantity > 20) {
       Get.snackbar('Invalid Operation', 'Exceeded available items',
-          backgroundColor: AppColors.mainColor, colorText: Colors.white);
+          colorText: Colors.black87
+          // backgroundColor: AppColors.mainColor, colorText: Colors.white
+          );
       return 20;
     } else {
       return quantity;
     }
   }
 
-  void initProductCartQuantity(CartController cart) {
-    _cartQuantity = 0;
+  void initProductCartQuantity(ProductModel product, CartController cart) {
+    _quantity = 0;
     _inCartItems = 0;
     _cart = cart;
+    bool exist = false;
+    exist = _cart.existInCart(product);
+    if (exist) {
+      _inCartItems = _cart.GetQuantity(product);
+    }
   }
 
   void addItem(ProductModel product) {
-    _cart.addItem(product, _cartQuantity);
+    _cart.addItem(product, _quantity);
+    _quantity = 0;
+    _inCartItems = _cart.GetQuantity(product);
+    update();
+    _cart.items.forEach((key, value) {
+      print("Product id is: " +
+          key.toString() +
+          " Product quantity is: " +
+          value.quantity.toString());
+    });
   }
 }

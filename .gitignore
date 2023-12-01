@@ -30,6 +30,10 @@
 .pub-cache/
 .pub/
 /build/
+lib/data/api/api_client.dart
+lib/controllers/cart_controller.dart
+lib/controllers
+lib/helper
 
 # Web related
 lib/generated_plugin_registrant.dart

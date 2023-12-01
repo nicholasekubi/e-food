@@ -28,7 +28,7 @@ class PopularFoodDetail extends StatelessWidget {
     //THis ensures that the every product detail page has a cart quantity set to zero.
     //
     Get.find<PopularProductController>()
-        .initProductCartQuantity(Get.find<CartController>());
+        .initProductCartQuantity(product, Get.find<CartController>());
     //print('Got pageID = ' + pageId.toString());
     //print('Product name = ' + product.name);
     return Scaffold(
@@ -71,7 +71,8 @@ class PopularFoodDetail extends StatelessWidget {
               children: [
                 GestureDetector(
                     onTap: () {
-                      Get.toNamed(RouteHelper.getInitial());
+                      // Get.toNamed(RouteHelper.getInitial());
+                      Get.close(1);
                     },
                     child: AppIcon(icon: Icons.arrow_back_ios_new_rounded)),
                 GestureDetector(
@@ -146,7 +147,7 @@ class PopularFoodDetail extends StatelessWidget {
                           child:
                               Icon(Icons.remove, color: AppColors.signColor)),
                       SizedBox(width: Dimensions.width10),
-                      BigText(text: popularProduct.cartQuantity.toString()),
+                      BigText(text: popularProduct.inCartItems.toString()),
                       SizedBox(width: Dimensions.width10),
                       GestureDetector(
                           onTap: () {
@@ -163,14 +164,16 @@ class PopularFoodDetail extends StatelessWidget {
                   padding: EdgeInsets.symmetric(
                       horizontal: Dimensions.width20,
                       vertical: Dimensions.height20),
-                  child: GestureDetector(
-                    onTap: () {
-                      popularProduct.addItem(product);
-                    },
-                    child: BigText(
-                        text: '\$${product.price} | Add to cart',
-                        color: Colors.white,
-                        size: Dimensions.font20),
+                  child: InkWell(
+                    child: GestureDetector(
+                      onTap: () {
+                        popularProduct.addItem(product);
+                      },
+                      child: BigText(
+                          text: '\$${product.price} | Add to cart',
+                          color: Colors.white,
+                          size: Dimensions.font20),
+                    ),
                   ),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(Dimensions.radius20),
