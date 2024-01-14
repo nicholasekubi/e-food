@@ -40,6 +40,7 @@ class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
                 children: [
                   textNeedExpand
                       ? SmallText(
+                          maxLines: 0,
                           text: textExpanded
                               ? widget.text
                               : widget.text.substring(0, textHeight.toInt()) +
@@ -49,6 +50,7 @@ class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
                           size: Dimensions.font16,
                         )
                       : SmallText(
+                          maxLines: 0,
                           text: widget.text,
                           color: AppColors.paraColor,
                           height: 1.8,
@@ -64,6 +66,7 @@ class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         SmallText(
+                          maxLines: 0,
                           text: textExpanded ? 'Show less' : 'Show more',
                           color: AppColors.mainColor,
                           size: Dimensions.font16,
@@ -81,6 +84,7 @@ class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
                 ],
               )
             : SmallText(
+                maxLines: 0,
                 text: widget.text,
                 color: AppColors.paraColor,
                 size: Dimensions.font16,

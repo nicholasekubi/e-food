@@ -20,14 +20,20 @@ class IconAndTextWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = Get.context!.width;
-    //if (screenWidth >= 320) {
+    // if (screenWidth >= 320) {
     return Row(
       children: [
         Icon(icon, color: iconColor, size: size),
         SizedBox(width: Dimensions.width5),
-        screenWidth >= 380
-            ? SmallText(text: text)
-            : SmallText(text: '${text.substring(0, 3)}' + '...'),
+        Expanded(
+          child: SmallText(
+            text: text,
+            maxLines: 1,
+          ),
+        ),
+        // screenWidth >= 400
+        //     ? SmallText(text: text)
+        //     : SmallText(text: '${text.substring(0, 3)}' + '...'),
       ],
     );
 
