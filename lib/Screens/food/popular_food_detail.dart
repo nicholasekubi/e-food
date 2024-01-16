@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/Screens/cart/cart_page.dart';
 import 'package:food_delivery/controllers/cart_controller.dart';
 import 'package:food_delivery/controllers/popular_product_controller.dart';
 import 'package:food_delivery/utils/app_constants.dart';
@@ -22,7 +23,7 @@ class PopularFoodDetail extends StatelessWidget {
     var product =
         Get.find<PopularProductController>().popularProductList[pageId];
     //
-    //THis ensures that the every product detail page has a cart quantity set to zero.
+    //THis ensures that the every product detail page has a cart quantity set to zero or what is already stored in the cart from previous orders by memory.
     //
     Get.find<PopularProductController>()
         .initProductCartQuantity(product, Get.find<CartController>());
@@ -37,6 +38,7 @@ class PopularFoodDetail extends StatelessWidget {
           //
           //THis Positioned widget allows the image to be paced in anyplace
           //
+          //Food detail image
           Positioned(
             left: 0,
             right: 0,
@@ -73,9 +75,55 @@ class PopularFoodDetail extends StatelessWidget {
                     },
                     child:
                         const AppIcon(icon: Icons.arrow_back_ios_new_rounded)),
-                GestureDetector(
-                    onTap: () {},
-                    child: const AppIcon(icon: Icons.shopping_cart_outlined))
+                GetBuilder<PopularProductController>(
+                  builder: ((controller) {
+                    return Stack(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(
+                              CartPage(),
+                            );
+                          },
+                          child:
+                              const AppIcon(icon: Icons.shopping_cart_checkout),
+                        ),
+                        Get.find<PopularProductController>().totalItems >= 1
+                            ? Positioned(
+                                right: 0,
+                                top: 0,
+                                child: Stack(
+                                  children: [
+                                    AppIcon(
+                                      icon: Icons.circle,
+                                      size: 20,
+                                      iconColor: Colors.transparent,
+                                      backgroundColor: AppColors.mainColor,
+                                    ),
+                                    Get.find<PopularProductController>()
+                                                .totalItems >=
+                                            1
+                                        ? Positioned(
+                                            right: 3,
+                                            top: 1,
+                                            child: BigText(
+                                              text: Get.find<
+                                                      PopularProductController>()
+                                                  .totalItems
+                                                  .toString(),
+                                              size: 12,
+                                              color: Colors.white,
+                                            ),
+                                          )
+                                        : Container(),
+                                  ],
+                                ),
+                              )
+                            : Container(),
+                      ],
+                    );
+                  }),
+                ),
               ],
             ),
           ),
@@ -97,8 +145,9 @@ class PopularFoodDetail extends StatelessWidget {
                   top: Dimensions.width20),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(Dimensions.radius20),
-                      topLeft: Radius.circular(Dimensions.radius20)),
+                    topRight: Radius.circular(Dimensions.radius20),
+                    topLeft: Radius.circular(Dimensions.radius20),
+                  ),
                   color: Colors.white),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
