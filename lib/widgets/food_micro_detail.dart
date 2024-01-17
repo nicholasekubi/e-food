@@ -30,29 +30,46 @@ class FoodMicroDetail extends StatelessWidget {
               ),
             ),
             SizedBox(width: Dimensions.width10),
-            SmallText(text: '4.5'),
+            SmallText(
+              text: '4.5',
+              maxLines: 1,
+            ),
             SizedBox(width: Dimensions.width20),
-            SmallText(text: '1287 comments')
+            Expanded(
+              child: SmallText(
+                text: '1287 comments',
+                maxLines: 1,
+              ),
+            )
           ],
         ),
-        SizedBox(height: Dimensions.height20),
+        SizedBox(height: Dimensions.height10),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const IconAndTextWidget(
-              icon: Icons.circle_sharp,
-              text: 'Normal',
-              iconColor: Colors.orange,
+            Expanded(
+              child: IconAndTextWidget(
+                icon: Icons.circle_sharp,
+                size: Dimensions.font20,
+                text: 'Normal',
+                iconColor: Colors.orange,
+              ),
             ),
-            IconAndTextWidget(
-              icon: Icons.location_on_sharp,
-              text: '1.7 km',
-              iconColor: AppColors.mainColor,
+            Expanded(
+              child: IconAndTextWidget(
+                icon: Icons.location_on_sharp,
+                size: Dimensions.font20,
+                text: '1.7 km',
+                iconColor: AppColors.mainColor,
+              ),
             ),
-            const IconAndTextWidget(
-              icon: Icons.access_time,
-              text: '32min',
-              iconColor: Colors.orange,
+            Expanded(
+              child: IconAndTextWidget(
+                icon: Icons.access_time,
+                size: Dimensions.font20,
+                text: '32 min',
+                iconColor: Colors.orange,
+              ),
             ),
           ],
         )

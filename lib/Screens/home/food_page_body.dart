@@ -46,7 +46,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   Widget build(BuildContext context) {
     print('height is' + MediaQuery.of(context).size.height.toString());
     print('Width is' + MediaQuery.of(context).size.width.toString());
-    // this container must have a height. all containers that have a child that does not contain a default height must have a heoght specified. This or else error.
+    // this container must have a height. all containers that have a child that does not contain a default height must have a height specified. This or else error.
     return Column(
       children: [
         //
@@ -106,7 +106,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              BigText(text: 'Recommeded'),
+              BigText(text: 'Recommended'),
               SizedBox(width: Dimensions.width10),
               Container(
                 margin: EdgeInsets.only(bottom: 3),
@@ -115,7 +115,10 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               SizedBox(width: Dimensions.width10),
               Container(
                 margin: EdgeInsets.only(bottom: 3),
-                child: SmallText(text: 'Food Pairing'),
+                child: SmallText(
+                  text: 'Food Pairing',
+                  maxLines: 1,
+                ),
               ),
             ],
           ),
@@ -196,30 +199,37 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                                                 .name!),
                                         SizedBox(height: Dimensions.height10),
                                         SmallText(
-                                            text:
-                                                'With Chinese Characteristics'),
+                                          text: 'With Chinese Characteristics',
+                                          maxLines: 1,
+                                        ),
                                         SizedBox(height: Dimensions.height10),
                                         Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            const IconAndTextWidget(
-                                              icon: Icons.circle_sharp,
-                                              size: 20,
-                                              text: 'Normal',
-                                              iconColor: Colors.orange,
+                                            Expanded(
+                                              child: IconAndTextWidget(
+                                                icon: Icons.circle_sharp,
+                                                size: Dimensions.font20,
+                                                text: 'Normal',
+                                                iconColor: Colors.orange,
+                                              ),
                                             ),
-                                            IconAndTextWidget(
-                                              icon: Icons.location_on_sharp,
-                                              size: 20,
-                                              text: '1.7 km',
-                                              iconColor: AppColors.mainColor,
+                                            Expanded(
+                                              child: IconAndTextWidget(
+                                                icon: Icons.location_on_sharp,
+                                                size: Dimensions.font20,
+                                                text: '1.7 km',
+                                                iconColor: AppColors.mainColor,
+                                              ),
                                             ),
-                                            const IconAndTextWidget(
-                                              icon: Icons.access_time,
-                                              size: 20,
-                                              text: '32min',
-                                              iconColor: Colors.orange,
+                                            Expanded(
+                                              child: IconAndTextWidget(
+                                                icon: Icons.access_time,
+                                                size: Dimensions.font20,
+                                                text: '32 min',
+                                                iconColor: Colors.orange,
+                                              ),
                                             ),
                                           ],
                                         )
